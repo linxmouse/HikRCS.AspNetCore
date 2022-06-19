@@ -13,22 +13,32 @@ namespace HikRCS.AspNetCore.Extensions
     {
         public static IMvcBuilder AddHikRCSIntegration(this IMvcBuilder builder, Action<HikRCSOptions> options)
         {
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
+            });
+
             builder.Services.AddOptions();
             builder.Services.Configure<HikRCSOptions>(options);
 
-            builder.Services.AddTransient<IHikAGVService, HikAGVService>();
+            builder.Services.AddTransient<IHikRobotService, HikRobotService>();
             builder.AddApplicationPart(typeof(HikRCSController).Assembly);
 
             return builder;
         }
 
         public static IMvcBuilder AddHikRCSIntegration<T>(this IMvcBuilder builder, Action<HikRCSOptions> options)
-            where T : class, IHikAGVService
+            where T : class, IHikRobotService
         {
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
+            });
+
             builder.Services.AddOptions();
             builder.Services.Configure<HikRCSOptions>(options);
 
-            builder.Services.AddTransient<IHikAGVService, T>();
+            builder.Services.AddTransient<IHikRobotService, T>();
             builder.AddApplicationPart(typeof(HikRCSController).Assembly);
 
             return builder;

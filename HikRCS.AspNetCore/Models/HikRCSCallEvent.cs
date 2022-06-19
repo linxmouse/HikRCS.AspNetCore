@@ -13,11 +13,15 @@ namespace HikRCS.AspNetCore.Models
         /// <summary>
         /// 通知
         /// </summary>
-        Notify,
+        Status,
         /// <summary>
         /// 告警
         /// </summary>
-        Warn
+        Warn,
+        /// <summary>
+        /// 
+        /// </summary>
+        Bind
     }
 
     /// <summary>
@@ -25,7 +29,7 @@ namespace HikRCS.AspNetCore.Models
     /// </summary>
     public class HikRCSCallEvent: INotification
     {
-        public EventType EventType { get; set; } = EventType.Notify;
+        public EventType EventType { get; set; } = EventType.Status;
         /// <summary>
         /// 通知的Method的名称
         /// </summary>
@@ -33,6 +37,6 @@ namespace HikRCS.AspNetCore.Models
         /// <summary>
         /// 告警的内容
         /// </summary>
-        public List<HikAGVWarnDesc> WarnDescs { get; set; }
+        public List<HikRobotWarnDesc> WarnDescs { get; set; }
     }
 }

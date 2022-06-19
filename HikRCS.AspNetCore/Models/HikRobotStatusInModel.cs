@@ -1,6 +1,6 @@
-﻿// File: HikCancelTaskModel
+﻿// File: HikRobotStatusInModel
 // Author: linxmouse@gmail.com
-// Creation: 2022/6/17 11:05:46
+// Creation: 2022/6/19 13:07:49
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,13 +8,7 @@ using System.Text;
 
 namespace HikRCS.AspNetCore.Models
 {
-    /// <summary>
-    /// taskCode 和 agvCode 选一项填写
-    /// 优先级从高到低依次为：agvCode、taskCode
-    /// 都传了优先使用 agvCode，以确定需要取消哪个任务单
-    /// 取消任务单后可释放对应的 AGV
-    /// </summary>
-    public class HikCancelTaskModel
+    public class HikRobotStatusInModel
     {
         /// <summary>
         /// 请求编号
@@ -28,13 +22,16 @@ namespace HikRCS.AspNetCore.Models
         /// </summary>
         public string reqTime { get; set; }
         /// <summary>
-        /// AGV 编号，填写表示指定某一编号的 AGV 执行该任务
+        /// 客户端编号，如PDA,HCWMS等
         /// </summary>
-        public string agvCode { get; set; }
+        public string clientCode { get; set; }
         /// <summary>
-        /// 任务单号,选填, 不填系统自动生成，必须为 32 位 UUID
+        /// 令牌号，由调度系统颁发
         /// </summary>
-        public string taskCode { get; set; }
-        
+        public string tokenCode { get; set; }
+        /// <summary>
+        /// 地图简称，与地码类型一致
+        /// </summary>
+        public string mapShortName { get; set; }
     }
 }

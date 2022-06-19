@@ -15,7 +15,7 @@ namespace HikRCS.AspNetCore.Services
     /// 获取任务状态
     /// 创建、继续、取消任务
     /// </summary>
-    public interface IHikAGVService
+    public interface IHikRobotService
     {
         /// <summary>
         /// 创建任务
@@ -26,7 +26,7 @@ namespace HikRCS.AspNetCore.Services
         /// taskCode: 任务单号,选填, 不填系统自动生成，必须为 32 位 UUID
         /// agvCode: AGV 编号，填写表示指定某一编号的 AGV 执行该任务
         /// </summary>
-        Task<(bool success, string message)> CreateTask(HikGenTaskModel genTaskModel);
+        Task<(bool success, string message)> CreateTask(HikNewTaskModel genTaskModel);
         /// <summary>
         /// 继续任务
         /// </summary>
@@ -38,10 +38,26 @@ namespace HikRCS.AspNetCore.Services
         /// <summary>
         /// 释放AGV
         /// </summary>
-        Task<(bool success, string message)> FreeAGV(HikFreeAGVModel freeAGVModel);
+        Task<(bool success, string message)> FreeRobot(HikFreeRobotModel freeRobotModel);
         /// <summary>
         /// 获取任务状态
         /// </summary>
-        Task<HikTaskStatusModel> GetTaskStatus(HikGetTaskStatusModel getTaskStatusModel);
+        Task<HikTaskStatusOutModel> GetTaskStatus(HikTaskStatusInModel taskStatusInModel);
+        /// <summary>
+        /// 查询AGV状态信息、电池电量
+        /// 调用频次:
+        /// 100车以下5秒 
+        /// 100-200车10秒 
+        /// 200-300车15秒
+        /// </summary>
+        Task<HikRobotStatusOutModel> GetRobotStatus(HikRobotStatusInModel robotStatusInModel);
+        /// <summary>
+        /// 停止指定或全部AGV
+        /// </summary>
+        Task<(bool success, string message)> StopRobot(HikStopAndResumeRobotInModel robotInModel);
+        /// <summary>
+        /// 恢复AGV,恢复后继续执行未完成的任务
+        /// </summary>
+        Task<(bool success, string message)> ResumeRobot(HikStopAndResumeRobotInModel robotInModel);
     }
 }

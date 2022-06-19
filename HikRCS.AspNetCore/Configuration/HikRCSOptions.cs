@@ -18,6 +18,9 @@ namespace HikRCS.AspNetCore.Configuration
         public string ContinueTaskRouter { get; set; } = "/continueTask";
         public string CancelTaskRouter { get; set; } = "/cancelTask";
         public string GetTaskStatusRouter { get; set; } = "/queryTaskStatus";
-        public string FreeAGVRouter { get; set; } = "/freeRobot";
+        public string GetRobotStatusRouter { get; set; } = "/queryAgvStatus";
+        public string FreeRobotRouter { get; set; } = "/freeRobot";
+        public string StopRobotRouter { get; set; } = "/stopRobot";
+        public string ResumeRobotRouter { get; set; } = "resumeRobot";
     }
 }

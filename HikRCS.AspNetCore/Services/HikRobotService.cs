@@ -12,7 +12,7 @@ using Microsoft.Extensions.Options;
 
 namespace HikRCS.AspNetCore.Services
 {
-    public class HikAGVService : IHikAGVService
+    public class HikRobotService : IHikRobotService
     {
         private readonly string _baseUrl;
         private readonly HikRCSOptions _hikRCS;
@@ -21,9 +21,12 @@ namespace HikRCS.AspNetCore.Services
         private readonly string _continueTaskRouter;
         private readonly string _cancelTaskRouter;
         private readonly string _getTaskStatusRouter;
-        private readonly string _freeAGVRouter;
+        private readonly string _getRobotStatusRouter;
+        private readonly string _freeRobotRouter;
+        private readonly string _stopRobotRouter;
+        private readonly string _resumeRobotRouter;
 
-        public HikAGVService(IOptions<HikRCSOptions> hikRCS)
+        public HikRobotService(IOptions<HikRCSOptions> hikRCS)
         {
             _hikRCS = hikRCS.Value;
             _baseUrl = _hikRCS.RCSUrl;
@@ -32,7 +35,10 @@ namespace HikRCS.AspNetCore.Services
             _continueTaskRouter = _hikRCS.ContinueTaskRouter;
             _cancelTaskRouter = _hikRCS.CancelTaskRouter;
             _getTaskStatusRouter = _hikRCS.GetTaskStatusRouter;
-            _freeAGVRouter = _hikRCS.FreeAGVRouter;
+            _getRobotStatusRouter = _hikRCS.GetRobotStatusRouter;
+            _freeRobotRouter = _hikRCS.FreeRobotRouter;
+            _stopRobotRouter = _hikRCS.StopRobotRouter;
+            _resumeRobotRouter = _hikRCS.ResumeRobotRouter;
         }
 
         public virtual async Task<(bool success, string message)> CancelTask(HikCancelTaskModel cancelTaskModel)
@@ -59,7 +65,7 @@ namespace HikRCS.AspNetCore.Services
             return (true, result.message);
         }
 
-        public virtual async Task<(bool success, string message)> CreateTask(HikGenTaskModel genTaskModel)
+        public virtual async Task<(bool success, string message)> CreateTask(HikNewTaskModel genTaskModel)
         {
             var apiPath = _baseUrl + _continueTaskRouter;
 
@@ -71,11 +77,11 @@ namespace HikRCS.AspNetCore.Services
             return (true, result.message);
         }
 
-        public virtual async Task<(bool success, string message)> FreeAGV(HikFreeAGVModel freeAGVModel)
+        public virtual async Task<(bool success, string message)> FreeRobot(HikFreeRobotModel freeRobotModel)
         {
             var apiPath = _baseUrl + _continueTaskRouter;
 
-            var response = await apiPath.PostJsonAsync(freeAGVModel);
+            var response = await apiPath.PostJsonAsync(freeRobotModel);
             if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
             var result = await response.GetJsonAsync();
             if (!result.code.Equals("0")) return (false, result.message);
@@ -83,13 +89,46 @@ namespace HikRCS.AspNetCore.Services
             return (true, result.message);
         }
 
-        public virtual async Task<HikTaskStatusModel> GetTaskStatus(HikGetTaskStatusModel getTaskStatusModel)
+        public virtual async Task<HikRobotStatusOutModel> GetRobotStatus(HikRobotStatusInModel robotStatusInModel)
+        {
+            var apiPath = _baseUrl + _getRobotStatusRouter;
+
+            var response = await apiPath.PostJsonAsync(robotStatusInModel);
+            if (!response.ResponseMessage.IsSuccessStatusCode) return new HikRobotStatusOutModel { code = "1", message = response.ResponseMessage.ReasonPhrase };
+            return await response.GetJsonAsync<HikRobotStatusOutModel>();
+        }
+
+        public virtual async Task<HikTaskStatusOutModel> GetTaskStatus(HikTaskStatusInModel taskStatusInModel)
         {
             var apiPath = _baseUrl + _continueTaskRouter;
 
-            var response = await apiPath.PostJsonAsync(getTaskStatusModel);
-            if (!response.ResponseMessage.IsSuccessStatusCode) return new HikTaskStatusModel { code = "1", message = response.ResponseMessage.ReasonPhrase };
-            return await response.GetJsonAsync<HikTaskStatusModel>();
+            var response = await apiPath.PostJsonAsync(taskStatusInModel);
+            if (!response.ResponseMessage.IsSuccessStatusCode) return new HikTaskStatusOutModel { code = "1", message = response.ResponseMessage.ReasonPhrase };
+            return await response.GetJsonAsync<HikTaskStatusOutModel>();
+        }
+
+        public virtual async Task<(bool success, string message)> ResumeRobot(HikStopAndResumeRobotInModel robotInModel)
+        {
+            var apiPath = _baseUrl + _resumeRobotRouter;
+
+            var response = await apiPath.PostJsonAsync(robotInModel);
+            if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
+            var result = await response.GetJsonAsync();
+            if (!result.code.Equals("0")) return (false, result.message);
+
+            return (true, result.message);
+        }
+
+        public virtual async Task<(bool success, string message)> StopRobot(HikStopAndResumeRobotInModel robotInModel)
+        {
+            var apiPath = _baseUrl + _stopRobotRouter;
+
+            var response = await apiPath.PostJsonAsync(robotInModel);
+            if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
+            var result = await response.GetJsonAsync();
+            if (!result.code.Equals("0")) return (false, result.message);
+
+            return (true, result.message);
         }
     }
 }

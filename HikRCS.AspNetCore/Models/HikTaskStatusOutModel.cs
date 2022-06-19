@@ -35,7 +35,7 @@ namespace HikRCS.AspNetCore.Models
         public string taskStatus { get; set; }
     }
 
-    public class HikTaskStatusModel
+    public class HikTaskStatusOutModel
     {
         /// <summary>
         /// 返回编号，0：成功 1~N ：失败

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HikRCS.AspNetCore.Models
 {
-    public class HikAGVWarnDesc
+    public class HikRobotWarnDesc
     {
         /// <summary>
         /// 车号
@@ -48,6 +48,6 @@ namespace HikRCS.AspNetCore.Models
         /// <summary>
         /// 告警信息
         /// </summary>
-        public List<HikAGVWarnDesc> warnInfos { get; set; }
+        public List<HikRobotWarnDesc> warnInfos { get; set; }
     }
 }

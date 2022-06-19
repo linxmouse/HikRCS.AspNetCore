@@ -25,6 +25,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// 添加回调控制器的跨域支持
+// 调用必须放在UseRouting之后,但在UseAuthorization之前,参考https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0#middleware-order
+app.ApplyHikRCSIntegration();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -14,7 +14,7 @@ namespace HikRCSIntegration.Test.MediatorCommand
 
         public Task Handle(HikRCSCallEvent notification, CancellationToken cancellationToken)
         {
-            if (notification.EventType == EventType.Notify)
+            if (notification.EventType == EventType.Status)
                 _logger.LogInformation($"Event type: {notification.EventType}, Method: {notification.Method}");
             else if (notification.EventType == EventType.Warn)
             {
