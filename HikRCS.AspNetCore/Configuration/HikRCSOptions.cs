@@ -13,6 +13,10 @@ namespace HikRCS.AspNetCore.Configuration
         /// HikRCS的API基地址
         /// </summary>
         public string RCSUrl { get; set; }
+        /// <summary>
+        /// 是否打印Flurl的请求日志
+        /// </summary>
+        public bool LogFlurlRequest { get; set; } = true;
 
         public string CreateTaskRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/genAgvSchedulingTask";
         public string ContinueTaskRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/continueTask";
