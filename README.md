@@ -82,7 +82,17 @@ public static IMvcBuilder AddHikRCSIntegration<T>(this IMvcBuilder builder, Acti
        .AddControllers()
        .AddHikRCSIntegration(options =>
        {
-           options.RCSUrl = "http://127.0.0.1:8182";
+           options.RCSUrl = "http://192.168.2.3";
+
+            //// default configuration
+            //options.CreateTaskRouter = ":8182/rcms/services/rest/hikRpcService/genAgvSchedulingTask";
+            //options.ContinueTaskRouter = ":8182/rcms/services/rest/hikRpcService/continueTask";
+            //options.CancelTaskRouter = ":8182/rcms/services/rest/hikRpcService/cancelTask";
+            //options.GetTaskStatusRouter = ":8182/rcms/services/rest/hikRpcService/queryTaskStatus";
+            //options.GetRobotStatusRouter = ":8083/rcms-dps/rest/queryAgvStatus";
+            //options.FreeRobotRouter = ":8182/rcms/services/rest/hikRpcService/freeRobot";
+            //options.StopRobotRouter = ":8182/rcms/services/rest/hikRpcService/stopRobot";
+            //options.ResumeRobotRouter = ":8182/rcms/services/rest/hikRpcService/resumeRobot";
        });
    ```
 
