@@ -2,6 +2,7 @@
 // Author: linxmouse@gmail.com
 // Creation: 2022/6/19 15:40:52
 using System;
+using System.Text.RegularExpressions;
 using Flurl.Http;
 using HikRCS.AspNetCore.Configuration;
 using Microsoft.AspNetCore.Builder;
@@ -23,7 +24,8 @@ namespace HikRCS.AspNetCore.Extensions
                 {
                     settings.BeforeCall += call =>
                     {
-                        logger.LogInformation($"Http request {call.Request.Url}");
+                        var msg = call.HttpRequestMessage.ToString();
+                        logger?.LogInformation(Regex.Replace(msg, "[\r\n]", ""));
                     };
                 }
                 settings.Timeout = TimeSpan.FromSeconds(3);

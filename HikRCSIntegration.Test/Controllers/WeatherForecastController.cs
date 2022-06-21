@@ -1,3 +1,4 @@
+using Flurl.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HikRCSIntegration.Test.Controllers
@@ -21,6 +22,7 @@ namespace HikRCSIntegration.Test.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
+            var response = "http://www.baidu.com".GetStringAsync().Result;
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

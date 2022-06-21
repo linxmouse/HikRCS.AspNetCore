@@ -12,18 +12,16 @@ namespace HikRCSIntegration.Test.MediatorCommand
             _logger = logger;
         }
 
+        /// <summary>
+        /// 处理状态回调逻辑
+        /// </summary>
+        /// <param name="notification"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public Task Handle(HikRCSCallEvent notification, CancellationToken cancellationToken)
         {
-            if (notification.EventType == EventType.Status)
-                _logger.LogInformation($"Event type: {notification.EventType}, Method: {notification.Method}");
-            else if (notification.EventType == EventType.Warn)
-            {
-                foreach (var item in notification.WarnDescs)
-                {
-                    _logger.LogInformation($"Event type: {notification.EventType}, Begin Date: {item.beginDate}, Task code: {item.taskCode}, Warn content: {item.warnContent}");
-                }
-            }
-                
+            _logger.LogInformation($"Method: {notification.Method}");
+
             return Task.CompletedTask;
         }
     }

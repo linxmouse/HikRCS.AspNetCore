@@ -28,7 +28,7 @@ namespace HikRCS.AspNetCore.Controllers
         [HttpPost]
         public async Task<IActionResult> Status(HikNotifyModel notifyModel)
         {
-            await _mediator.Publish(new HikRCSCallEvent { EventType = EventType.Status, Method = notifyModel.method });
+            await _mediator.Publish(new HikRCSCallEvent { Method = notifyModel.method });
 
             return Ok(new MyReplyModel());
         }
@@ -44,7 +44,7 @@ namespace HikRCS.AspNetCore.Controllers
         {
             if (warnModel.warnInfos.Any())
             {
-                await _mediator.Publish(new HikRCSCallEvent { EventType = EventType.Warn, WarnDescs = warnModel.warnInfos });
+                await _mediator.Publish(new HikRCSWarnEvent { WarnDescs = warnModel.warnInfos });
             }
 
             return Ok(new MyReplyModel());

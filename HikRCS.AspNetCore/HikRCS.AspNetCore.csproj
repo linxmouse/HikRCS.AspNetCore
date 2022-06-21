@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <Nullable>enable</Nullable>
     <Authors>linxmouse</Authors>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>http://gitea.dbugs.work/linxmouse/HikRCS.AspNetCore.git</RepositoryUrl>
   </PropertyGroup>

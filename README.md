@@ -1,4 +1,4 @@
-﻿## 说明
+﻿﻿## 说明
 
 独立出与海康RCS通信交互部分，可以有更多的精力关注业务层，更好的代码复用节约开发时间
 
@@ -84,20 +84,22 @@ public static IMvcBuilder AddHikRCSIntegration<T>(this IMvcBuilder builder, Acti
        {
            options.RCSUrl = "http://192.168.2.3";
 
-            //// default configuration
-            //options.CreateTaskRouter = ":8182/rcms/services/rest/hikRpcService/genAgvSchedulingTask";
-            //options.ContinueTaskRouter = ":8182/rcms/services/rest/hikRpcService/continueTask";
-            //options.CancelTaskRouter = ":8182/rcms/services/rest/hikRpcService/cancelTask";
-            //options.GetTaskStatusRouter = ":8182/rcms/services/rest/hikRpcService/queryTaskStatus";
-            //options.GetRobotStatusRouter = ":8083/rcms-dps/rest/queryAgvStatus";
-            //options.FreeRobotRouter = ":8182/rcms/services/rest/hikRpcService/freeRobot";
-            //options.StopRobotRouter = ":8182/rcms/services/rest/hikRpcService/stopRobot";
-            //options.ResumeRobotRouter = ":8182/rcms/services/rest/hikRpcService/resumeRobot";
+           //// default configuration
+           //options.CreateTaskRouter = ":8182/rcms/services/rest/hikRpcService/genAgvSchedulingTask";
+           //options.ContinueTaskRouter = ":8182/rcms/services/rest/hikRpcService/continueTask";
+           //options.CancelTaskRouter = ":8182/rcms/services/rest/hikRpcService/cancelTask";
+           //options.GetTaskStatusRouter = ":8182/rcms/services/rest/hikRpcService/queryTaskStatus";
+           //options.GetRobotStatusRouter = ":8083/rcms-dps/rest/queryAgvStatus";
+           //options.FreeRobotRouter = ":8182/rcms/services/rest/hikRpcService/freeRobot";
+           //options.StopRobotRouter = ":8182/rcms/services/rest/hikRpcService/stopRobot";
+           //options.ResumeRobotRouter = ":8182/rcms/services/rest/hikRpcService/resumeRobot";
        });
    ```
 
 3. 现实MediatR的`INotificationHandler<HikRCSCallEvent>`，如下
 
+   **HikRCSCallCommand**
+   
    ```c#
    using HikRCS.AspNetCore.Models;
    using MediatR;
@@ -114,26 +116,59 @@ public static IMvcBuilder AddHikRCSIntegration<T>(this IMvcBuilder builder, Acti
            }
    
            /// <summary>
-           /// 这里专注处理业务代码
+           /// 处理状态回调逻辑
            /// </summary>
+           /// <param name="notification"></param>
+           /// <param name="cancellationToken"></param>
+           /// <returns></returns>
            public Task Handle(HikRCSCallEvent notification, CancellationToken cancellationToken)
            {
-               if (notification.EventType == EventType.Notify)
-                   _logger.LogInformation($"Event type: {notification.EventType}, Method: {notification.Method}");
-               else if (notification.EventType == EventType.Warn)
-               {
-                   foreach (var item in notification.WarnDescs)
-                   {
-                       _logger.LogInformation($"Event type: {notification.EventType}, Begin Date: {item.beginDate}, Task code: {item.taskCode}, Warn content: {item.warnContent}");
-                   }
-               }
-                   
+               _logger.LogInformation($"Method: {notification.Method}");
+   
                return Task.CompletedTask;
            }
        }
    }
    ```
-
+   **HikRCSWarnCommand**
+   
+   ```c#
+   using HikRCS.AspNetCore.Models;
+   using MediatR;
+   
+   namespace HikRCSIntegration.Test.MediatorCommand
+   {
+       public class HikRCSWarnCommand : INotificationHandler<HikRCSWarnEvent>
+       {
+           private readonly ILogger<HikRCSCallCommand> _logger;
+   
+           public HikRCSWarnCommand(ILogger<HikRCSCallCommand> logger)
+           {
+               _logger = logger;
+           }
+   
+           /// <summary>
+           /// 告警回调逻辑
+           /// </summary>
+           /// <param name="notification"></param>
+           /// <param name="cancellationToken"></param>
+           /// <returns></returns>
+           public Task Handle(HikRCSWarnEvent notification, CancellationToken cancellationToken)
+           {
+               if (notification.WarnDescs.Any())
+               {
+                   foreach (var item in notification.WarnDescs)
+                   {
+                       _logger.LogInformation($"Begin Date: {item.beginDate}, Task code: {item.taskCode}, Warn content: {item.warnContent}");
+                   }
+               }
+   
+               return Task.CompletedTask;
+           }
+       }
+   }
+   ```
+   
 4. ***欧克，下面来验证一下结果***
 
    分别使用**丝袜哥**调用两个提供给HikRCS的两个接口
@@ -186,9 +221,9 @@ public static IMvcBuilder AddHikRCSIntegration<T>(this IMvcBuilder builder, Acti
 
    ```bash
    info: HikRCSIntegration.Test.MediatorCommand.HikRCSCallCommand[0]
-         Event type: Notify, Method: RCS回调.method=测试
+         Method: RCS回调.method=测试
    info: HikRCSIntegration.Test.MediatorCommand.HikRCSCallCommand[0]
-         Event type: Warn, Begin Date: 2022/6/18 13:56:30, Task code: 001122334455, Warn content: 爆炸告警测试
+         Begin Date: 2022/6/18 13:56:30, Task code: 001122334455, Warn content: 爆炸告警测试
    ```
 
    
