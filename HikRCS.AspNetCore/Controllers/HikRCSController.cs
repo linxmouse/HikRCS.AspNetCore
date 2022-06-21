@@ -40,7 +40,6 @@ namespace HikRCS.AspNetCore.Controllers
         /// 该接口路径必须为： http://IP:PORT/service/rest/agvCallbackService/warnCallback
         /// </summary>
         [HttpPost("/service/rest/agvCallbackService/warnCallback")]
-        //[Route("/service/rest/agvCallbackService/warnCallback")]
         public async Task<IActionResult> Warn(HikWarnModel warnModel)
         {
             if (warnModel.warnInfos.Any())

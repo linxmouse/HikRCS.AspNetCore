@@ -45,90 +45,154 @@ namespace HikRCS.AspNetCore.Services
         {
             var apiPath = _baseUrl + _cancelTaskRouter;
 
-            var response = await apiPath.PostJsonAsync(cancelTaskModel);
-            if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
-            var result = await response.GetJsonAsync();
-            if (!result.code.Equals("0")) return (false, result.message);
+            try
+            {
+                var response = await apiPath.PostJsonAsync(cancelTaskModel);
+                if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
+                var result = await response.GetJsonAsync();
+                if (!result.code.Equals("0")) return (false, result.message);
 
-            return (true, result.message);
+                return (true, result.message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+                throw;
+            }
         }
 
         public virtual async Task<(bool success, string message)> ContinueTask(HikContinueTaskModel continueTaskModel)
         {
             var apiPath = _baseUrl + _continueTaskRouter;
 
-            var response = await apiPath.PostJsonAsync(continueTaskModel);
-            if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
-            var result = await response.GetJsonAsync();
-            if (!result.code.Equals("0")) return (false, result.message);
+            try
+            {
+                var response = await apiPath.PostJsonAsync(continueTaskModel);
+                if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
+                var result = await response.GetJsonAsync();
+                if (!result.code.Equals("0")) return (false, result.message);
 
-            return (true, result.message);
+                return (true, result.message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+                throw;
+            }
         }
 
         public virtual async Task<(bool success, string message)> CreateTask(HikNewTaskModel genTaskModel)
         {
             var apiPath = _baseUrl + _createTaskRouter;
 
-            var response = await apiPath.PostJsonAsync(genTaskModel);
-            if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
-            var result = await response.GetJsonAsync();
-            if (!result.code.Equals("0")) return (false, result.message);
+            try
+            {
+                var response = await apiPath.PostJsonAsync(genTaskModel);
+                if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
+                var result = await response.GetJsonAsync();
+                if (!result.code.Equals("0")) return (false, result.message);
 
-            return (true, result.message);
+                return (true, result.message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+                throw;
+            }
         }
 
         public virtual async Task<(bool success, string message)> FreeRobot(HikFreeRobotModel freeRobotModel)
         {
             var apiPath = _baseUrl + _freeRobotRouter;
 
-            var response = await apiPath.PostJsonAsync(freeRobotModel);
-            if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
-            var result = await response.GetJsonAsync();
-            if (!result.code.Equals("0")) return (false, result.message);
+            try
+            {
+                var response = await apiPath.PostJsonAsync(freeRobotModel);
+                if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
+                var result = await response.GetJsonAsync();
+                if (!result.code.Equals("0")) return (false, result.message);
 
-            return (true, result.message);
+                return (true, result.message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+                throw;
+            }
         }
 
         public virtual async Task<HikRobotStatusOutModel> GetRobotStatus(HikRobotStatusInModel robotStatusInModel)
         {
             var apiPath = _baseUrl + _getRobotStatusRouter;
 
-            var response = await apiPath.PostJsonAsync(robotStatusInModel);
-            if (!response.ResponseMessage.IsSuccessStatusCode) return new HikRobotStatusOutModel { code = "1", message = response.ResponseMessage.ReasonPhrase };
-            return await response.GetJsonAsync<HikRobotStatusOutModel>();
+            try
+            {
+                var response = await apiPath.PostJsonAsync(robotStatusInModel);
+                if (!response.ResponseMessage.IsSuccessStatusCode) return new HikRobotStatusOutModel { code = "1", message = response.ResponseMessage.ReasonPhrase };
+                return await response.GetJsonAsync<HikRobotStatusOutModel>();
+            }
+            catch (Exception ex)
+            {
+                return new HikRobotStatusOutModel { code = "1", message = ex.Message };
+                throw;
+            }
         }
 
         public virtual async Task<HikTaskStatusOutModel> GetTaskStatus(HikTaskStatusInModel taskStatusInModel)
         {
             var apiPath = _baseUrl + _getTaskStatusRouter;
 
-            var response = await apiPath.PostJsonAsync(taskStatusInModel);
-            if (!response.ResponseMessage.IsSuccessStatusCode) return new HikTaskStatusOutModel { code = "1", message = response.ResponseMessage.ReasonPhrase };
-            return await response.GetJsonAsync<HikTaskStatusOutModel>();
+            try
+            {
+                var response = await apiPath.PostJsonAsync(taskStatusInModel);
+                if (!response.ResponseMessage.IsSuccessStatusCode) return new HikTaskStatusOutModel { code = "1", message = response.ResponseMessage.ReasonPhrase };
+                return await response.GetJsonAsync<HikTaskStatusOutModel>();
+            }
+            catch (Exception ex)
+            {
+                return new HikTaskStatusOutModel { code = "1", message = ex.Message };
+                throw;
+            }
         }
 
         public virtual async Task<(bool success, string message)> ResumeRobot(HikStopAndResumeRobotInModel robotInModel)
         {
             var apiPath = _baseUrl + _resumeRobotRouter;
 
-            var response = await apiPath.PostJsonAsync(robotInModel);
-            if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
-            var result = await response.GetJsonAsync();
-            if (!result.code.Equals("0")) return (false, result.message);
+            try
+            {
+                var response = await apiPath.PostJsonAsync(robotInModel);
+                if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
+                var result = await response.GetJsonAsync();
+                if (!result.code.Equals("0")) return (false, result.message);
 
-            return (true, result.message);
+                return (true, result.message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+                throw;
+            }
         }
 
         public virtual async Task<(bool success, string message)> StopRobot(HikStopAndResumeRobotInModel robotInModel)
         {
             var apiPath = _baseUrl + _stopRobotRouter;
 
-            var response = await apiPath.PostJsonAsync(robotInModel);
-            if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
-            var result = await response.GetJsonAsync();
-            if (!result.code.Equals("0")) return (false, result.message);
+            try
+            {
+                var response = await apiPath.PostJsonAsync(robotInModel);
+                if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
+                var result = await response.GetJsonAsync();
+                if (!result.code.Equals("0")) return (false, result.message);
 
-            return (true, result.message);
+                return (true, result.message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
+                throw;
+            }
         }
     }
 }
