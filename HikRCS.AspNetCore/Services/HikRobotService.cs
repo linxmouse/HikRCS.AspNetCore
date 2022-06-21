@@ -67,7 +67,7 @@ namespace HikRCS.AspNetCore.Services
 
         public virtual async Task<(bool success, string message)> CreateTask(HikNewTaskModel genTaskModel)
         {
-            var apiPath = _baseUrl + _continueTaskRouter;
+            var apiPath = _baseUrl + _createTaskRouter;
 
             var response = await apiPath.PostJsonAsync(genTaskModel);
             if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
@@ -79,7 +79,7 @@ namespace HikRCS.AspNetCore.Services
 
         public virtual async Task<(bool success, string message)> FreeRobot(HikFreeRobotModel freeRobotModel)
         {
-            var apiPath = _baseUrl + _continueTaskRouter;
+            var apiPath = _baseUrl + _freeRobotRouter;
 
             var response = await apiPath.PostJsonAsync(freeRobotModel);
             if (!response.ResponseMessage.IsSuccessStatusCode) return (false, response.ResponseMessage.ReasonPhrase);
@@ -100,7 +100,7 @@ namespace HikRCS.AspNetCore.Services
 
         public virtual async Task<HikTaskStatusOutModel> GetTaskStatus(HikTaskStatusInModel taskStatusInModel)
         {
-            var apiPath = _baseUrl + _continueTaskRouter;
+            var apiPath = _baseUrl + _getTaskStatusRouter;
 
             var response = await apiPath.PostJsonAsync(taskStatusInModel);
             if (!response.ResponseMessage.IsSuccessStatusCode) return new HikTaskStatusOutModel { code = "1", message = response.ResponseMessage.ReasonPhrase };

@@ -5,7 +5,12 @@ VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikRCS.AspNetCore", "HikRCS.AspNetCore\HikRCS.AspNetCore.csproj", "{5B1A55D1-F5B8-475F-882E-F5B11AF131CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikRCSIntegration.Test", "HikRCSIntegration.Test\HikRCSIntegration.Test.csproj", "{9FD674DE-9DFA-42CA-AE08-D0300499D2FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HikRCSIntegration.Test", "HikRCSIntegration.Test\HikRCSIntegration.Test.csproj", "{9FD674DE-9DFA-42CA-AE08-D0300499D2FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{626A3179-BC75-4A33-B1B6-F43D96097242}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

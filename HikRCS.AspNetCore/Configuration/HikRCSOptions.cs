@@ -14,13 +14,13 @@ namespace HikRCS.AspNetCore.Configuration
         /// </summary>
         public string RCSUrl { get; set; }
 
-        public string CreateTaskRouter { get; set; } = "/genAgvSchedulingTask";
-        public string ContinueTaskRouter { get; set; } = "/continueTask";
-        public string CancelTaskRouter { get; set; } = "/cancelTask";
-        public string GetTaskStatusRouter { get; set; } = "/queryTaskStatus";
-        public string GetRobotStatusRouter { get; set; } = "/queryAgvStatus";
-        public string FreeRobotRouter { get; set; } = "/freeRobot";
-        public string StopRobotRouter { get; set; } = "/stopRobot";
-        public string ResumeRobotRouter { get; set; } = "resumeRobot";
+        public string CreateTaskRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/genAgvSchedulingTask";
+        public string ContinueTaskRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/continueTask";
+        public string CancelTaskRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/cancelTask";
+        public string GetTaskStatusRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/queryTaskStatus";
+        public string GetRobotStatusRouter { get; set; } = ":8083/rcms-dps/rest/queryAgvStatus";
+        public string FreeRobotRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/freeRobot";
+        public string StopRobotRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/stopRobot";
+        public string ResumeRobotRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/resumeRobot";
     }
 }

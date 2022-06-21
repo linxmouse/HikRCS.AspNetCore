@@ -40,6 +40,6 @@ namespace HikRCS.AspNetCore.Models
         /// <summary>
         /// 具体机器人编号列表
         /// </summary>
-        public List<string> strings { get; set; }
+        public List<string> robots { get; set; }
     }
 }

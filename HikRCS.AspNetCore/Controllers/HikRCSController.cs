@@ -51,14 +51,14 @@ namespace HikRCS.AspNetCore.Controllers
             return Ok(new MyReplyModel());
         }
 
-        /// <summary>
-        /// 可在执行绑定货架与储位,绑定货架与物料,绑定仓位与容器后通知上层
-        /// 该接口路径必须为： http://IP:PORT/service/rest/bindNotify
-        /// </summary>
-        [HttpPost("/service/rest/bindNotify")]
-        public async Task<IActionResult> Bind(object param)
-        {
-            return Ok(new MyReplyModel());
-        }
+        ///// <summary>
+        ///// 可在执行绑定货架与储位,绑定货架与物料,绑定仓位与容器后通知上层
+        ///// 该接口路径必须为： http://IP:PORT/service/rest/bindNotify
+        ///// </summary>
+        //[HttpPost("/service/rest/bindNotify")]
+        //public async Task<IActionResult> Bind(object param)
+        //{
+        //    return Ok(new MyReplyModel());
+        //}
     }
 }
