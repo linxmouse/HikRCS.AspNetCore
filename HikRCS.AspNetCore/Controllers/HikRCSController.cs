@@ -30,7 +30,7 @@ namespace HikRCS.AspNetCore.Controllers
         {
             await _mediator.Publish(new HikRCSCallEvent { Method = notifyModel.method });
 
-            return Ok(new MyReplyModel());
+            return Ok((code: 0, message: "成功"));
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace HikRCS.AspNetCore.Controllers
                 await _mediator.Publish(new HikRCSWarnEvent { WarnDescs = warnModel.warnInfos });
             }
 
-            return Ok(new MyReplyModel());
+            return Ok((code: 0, message: "成功"));
         }
 
         ///// <summary>
@@ -57,7 +57,7 @@ namespace HikRCS.AspNetCore.Controllers
         //[HttpPost("/service/rest/bindNotify")]
         //public async Task<IActionResult> Bind(object param)
         //{
-        //    return Ok(new MyReplyModel());
+        //    return Ok((code: 0, message: "成功"));
         //}
     }
 }
