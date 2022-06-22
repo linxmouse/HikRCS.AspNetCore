@@ -2,6 +2,7 @@
 // Author: linxmouse@gmail.com
 // Creation: 2022/6/16 12:48:25
 using System;
+using AspectCore.Extensions.DependencyInjection;
 using HikRCS.AspNetCore.Configuration;
 using HikRCS.AspNetCore.Controllers;
 using HikRCS.AspNetCore.Services;
@@ -13,6 +14,7 @@ namespace HikRCS.AspNetCore.Extensions
     {
         public static IMvcBuilder AddHikRCSIntegration(this IMvcBuilder builder, Action<HikRCSOptions> options)
         {
+            builder.Services.ConfigureDynamicProxy();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
@@ -30,6 +32,7 @@ namespace HikRCS.AspNetCore.Extensions
         public static IMvcBuilder AddHikRCSIntegration<T>(this IMvcBuilder builder, Action<HikRCSOptions> options)
             where T : class, IHikRobotService
         {
+            builder.Services.ConfigureDynamicProxy();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());

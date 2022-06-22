@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Cors;
 namespace HikRCS.AspNetCore.Controllers
 {
     [EnableCors("HikRCSAny")]
-    [Route("restapi/HikIntegration/[action]")]
+    [Route("/service/rest/[action]")]
     [ApiController]
     public class HikRCSController : ControllerBase
     {

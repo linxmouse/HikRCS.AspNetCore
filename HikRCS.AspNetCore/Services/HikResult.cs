@@ -12,6 +12,6 @@ namespace HikRCS.AspNetCore.Services
     {
         public bool success { get; set; }
         public string message { get; set; }
-        public TResult data { get; set; }
+        public TResult data { get; set; } = default(TResult)!;
     }
 }
