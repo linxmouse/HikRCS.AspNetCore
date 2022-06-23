@@ -6,6 +6,7 @@ using AspectCore.Extensions.DependencyInjection;
 using HikRCS.AspNetCore.Configuration;
 using HikRCS.AspNetCore.Controllers;
 using HikRCS.AspNetCore.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HikRCS.AspNetCore.Extensions
@@ -40,6 +41,69 @@ namespace HikRCS.AspNetCore.Extensions
 
             builder.Services.AddOptions();
             builder.Services.Configure<HikRCSOptions>(options);
+
+            builder.Services.AddTransient<IHikRobotService, T>();
+            builder.AddApplicationPart(typeof(HikRCSController).Assembly);
+
+            return builder;
+        }
+
+        public static IMvcBuilder AddHikRCSIntegration(this IMvcBuilder builder, IConfiguration configuration)
+        {
+            builder.Services.ConfigureDynamicProxy();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
+            });
+
+            var options = configuration.GetSection("HikRCS").Get<HikRCSOptions>();
+            builder.Services.AddOptions();
+            builder.Services.Configure<HikRCSOptions>(x =>
+            {
+                x.RCSUrl = options.RCSUrl;
+                x.LogFlurlRequest = options.LogFlurlRequest;
+
+                x.CreateTaskRouter = options.CreateTaskRouter;
+                x.StopRobotRouter = options.StopRobotRouter;
+                x.ResumeRobotRouter = options.ResumeRobotRouter;
+                x.FreeRobotRouter = options.FreeRobotRouter;
+                x.GetRobotStatusRouter = options.GetRobotStatusRouter;
+                x.GetTaskStatusRouter = options.GetTaskStatusRouter;
+                x.CancelTaskRouter = options.CancelTaskRouter;
+                x.ContinueTaskRouter = options.ContinueTaskRouter;
+            });
+
+            builder.Services.AddTransient<IHikRobotService, HikRobotService>();
+            builder.AddApplicationPart(typeof(HikRCSController).Assembly);
+
+            return builder;
+        }
+
+        public static IMvcBuilder AddHikRCSIntegration<T>(this IMvcBuilder builder, IConfiguration configuration)
+            where T : class, IHikRobotService
+        {
+            builder.Services.ConfigureDynamicProxy();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
+            });
+
+            var options = configuration.GetSection("HikRCS").Get<HikRCSOptions>();
+            builder.Services.AddOptions();
+            builder.Services.Configure<HikRCSOptions>(x =>
+            {
+                x.RCSUrl = options.RCSUrl;
+                x.LogFlurlRequest = options.LogFlurlRequest;
+
+                x.CreateTaskRouter = options.CreateTaskRouter;
+                x.StopRobotRouter = options.StopRobotRouter;
+                x.ResumeRobotRouter = options.ResumeRobotRouter;
+                x.FreeRobotRouter = options.FreeRobotRouter;
+                x.GetRobotStatusRouter = options.GetRobotStatusRouter;
+                x.GetTaskStatusRouter = options.GetTaskStatusRouter;
+                x.CancelTaskRouter = options.CancelTaskRouter;
+                x.ContinueTaskRouter = options.ContinueTaskRouter;
+            });
 
             builder.Services.AddTransient<IHikRobotService, T>();
             builder.AddApplicationPart(typeof(HikRCSController).Assembly);

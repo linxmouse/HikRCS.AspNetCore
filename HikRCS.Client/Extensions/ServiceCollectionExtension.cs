@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Flurl.Http;
 using HikRCS.Client.Configuration;
 using HikRCS.Client.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -43,11 +44,98 @@ namespace HikRCS.Client.Extensions
             return services;
         }
 
+        public static IServiceCollection AddHikRCSClient(this IServiceCollection services, IConfiguration configuration)
+        {
+            var options = configuration.GetSection("HikRCS").Get<HikRCSOptions>();
+            services.AddOptions();
+            services.Configure<HikRCSOptions>(x =>
+            {
+                x.RCSUrl = options.RCSUrl;
+                x.LogFlurlRequest = options.LogFlurlRequest;
+
+                x.CreateTaskRouter = options.CreateTaskRouter;
+                x.StopRobotRouter = options.StopRobotRouter;
+                x.ResumeRobotRouter = options.ResumeRobotRouter;
+                x.FreeRobotRouter = options.FreeRobotRouter;
+                x.GetRobotStatusRouter = options.GetRobotStatusRouter;
+                x.GetTaskStatusRouter = options.GetTaskStatusRouter;
+                x.CancelTaskRouter = options.CancelTaskRouter;
+                x.ContinueTaskRouter = options.ContinueTaskRouter;
+            });
+
+            services.AddTransient<IHikRobotService, HikRobotService>(provider =>
+            {
+                var op = provider.GetRequiredService<IOptions<HikRCSOptions>>();
+                var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("HikRCSIntegration");
+                FlurlHttp.Configure(settings =>
+                {
+                    var config = op.Value;
+                    if (config.LogFlurlRequest)
+                    {
+                        settings.BeforeCall += call =>
+                        {
+                            var msg = call.HttpRequestMessage.ToString();
+                            logger?.LogInformation(Regex.Replace(msg, "[\r\n]", ""));
+                        };
+                    }
+                    settings.Timeout = TimeSpan.FromSeconds(3);
+                });
+
+                return ActivatorUtilities.GetServiceOrCreateInstance<HikRobotService>(provider);
+            });
+
+            return services;
+        }
+
         public static IServiceCollection AddHikRCSClient<T>(this IServiceCollection services, Action<HikRCSOptions> options)
             where T : class, IHikRobotService
         {
             services.AddOptions();
             services.Configure<HikRCSOptions>(options);
+
+            services.AddTransient<IHikRobotService, T>(provider =>
+            {
+                var op = provider.GetRequiredService<IOptions<HikRCSOptions>>();
+                var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("HikRCSIntegration");
+                FlurlHttp.Configure(settings =>
+                {
+                    var config = op.Value;
+                    if (config.LogFlurlRequest)
+                    {
+                        settings.BeforeCall += call =>
+                        {
+                            var msg = call.HttpRequestMessage.ToString();
+                            logger?.LogInformation(Regex.Replace(msg, "[\r\n]", ""));
+                        };
+                    }
+                    settings.Timeout = TimeSpan.FromSeconds(3);
+                });
+
+                return ActivatorUtilities.GetServiceOrCreateInstance<T>(provider);
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection AddHikRCSClient<T>(this IServiceCollection services, IConfiguration configuration)
+            where T : class, IHikRobotService
+        {
+            var options = configuration.GetSection("HikRCS").Get<HikRCSOptions>();
+            services.AddOptions();
+            services.Configure<HikRCSOptions>(x =>
+            {
+                x.RCSUrl = options.RCSUrl;
+                x.LogFlurlRequest = options.LogFlurlRequest;
+
+                x.CreateTaskRouter = options.CreateTaskRouter;
+                x.StopRobotRouter = options.StopRobotRouter;
+                x.ResumeRobotRouter = options.ResumeRobotRouter;
+                x.FreeRobotRouter = options.FreeRobotRouter;
+                x.GetRobotStatusRouter = options.GetRobotStatusRouter;
+                x.GetTaskStatusRouter = options.GetTaskStatusRouter;
+                x.CancelTaskRouter = options.CancelTaskRouter;
+                x.ContinueTaskRouter = options.ContinueTaskRouter;
+            });
 
             services.AddTransient<IHikRobotService, T>(provider =>
             {
