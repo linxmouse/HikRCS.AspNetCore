@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HikRCS.AspNetCore\HikRCS.AspNetCore.csproj" />
+    <ProjectReference Include="..\HikRCS.Client\HikRCS.Client.csproj" />
   </ItemGroup>
 
 </Project>

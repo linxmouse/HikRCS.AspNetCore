@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		厂内物流调度控制系统RCS-2000 V3.1.3 对外任务接口文档.pdf = 厂内物流调度控制系统RCS-2000 V3.1.3 对外任务接口文档.pdf
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikRCS.Client", "HikRCS.Client\HikRCS.Client.csproj", "{FA718C51-014D-4F66-865C-3169B7BB79FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9FD674DE-9DFA-42CA-AE08-D0300499D2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FD674DE-9DFA-42CA-AE08-D0300499D2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FD674DE-9DFA-42CA-AE08-D0300499D2FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA718C51-014D-4F66-865C-3169B7BB79FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA718C51-014D-4F66-865C-3169B7BB79FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA718C51-014D-4F66-865C-3169B7BB79FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA718C51-014D-4F66-865C-3169B7BB79FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
