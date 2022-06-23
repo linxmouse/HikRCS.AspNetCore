@@ -1,5 +1,6 @@
 using Flurl.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace HikRCSIntegration.Test.Controllers
 {
@@ -17,6 +18,9 @@ namespace HikRCSIntegration.Test.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
+            var tv = (success: false, message: "error");
+            var str = JsonSerializer.Serialize(tv);
+            logger.LogInformation(str);
         }
 
         [HttpGet(Name = "GetWeatherForecast")]

@@ -30,14 +30,19 @@ namespace HikRCS.AspNetCore.Controllers
         {
             await _mediator.Publish(new HikRCSCallEvent { Method = notifyModel.method });
 
-            return Ok((code: 0, message: "成功"));
+            return Ok(new
+            {
+                code = "0",
+                reqCode = notifyModel.reqCode,
+                message = "成功"
+            });
         }
 
         /// <summary>
         /// 告警推送回调的方法
-        /// 调度系统将导致 AGV 停止运行的严重告警推送给上层系统
+        /// 调度系统将导致AGV停止运行的严重告警推送给上层系统
         /// 推送频率10秒一次
-        /// 该接口路径必须为： http://IP:PORT/service/rest/agvCallbackService/warnCallback
+        /// 该接口路径必须为:http://IP:PORT/service/rest/agvCallbackService/warnCallback
         /// </summary>
         [HttpPost("/service/rest/agvCallbackService/warnCallback")]
         public async Task<IActionResult> Warn(HikWarnModel warnModel)
@@ -47,7 +52,12 @@ namespace HikRCS.AspNetCore.Controllers
                 await _mediator.Publish(new HikRCSWarnEvent { WarnDescs = warnModel.warnInfos });
             }
 
-            return Ok((code: 0, message: "成功"));
+            return Ok(new
+            {
+                code = "0",
+                reqCode = warnModel.reqCode,
+                message = "成功"
+            });
         }
 
         ///// <summary>
@@ -57,7 +67,12 @@ namespace HikRCS.AspNetCore.Controllers
         //[HttpPost("/service/rest/bindNotify")]
         //public async Task<IActionResult> Bind(object param)
         //{
-        //    return Ok((code: 0, message: "成功"));
+        //    return Ok(new
+        //    {
+        //        code = "0",
+        //        reqCode = param.reqCode,
+        //        message = "成功"
+        //    });
         //}
     }
 }
