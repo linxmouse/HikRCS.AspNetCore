@@ -1,12 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1</TargetFrameworks>
-    <Version>1.0.0</Version>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Version>1.0.2</Version>
     <Authors>linxmouse</Authors>
     <PackageProjectUrl>http://gitea.dbugs.work/linxmouse/HikRCS.AspNetCore.git</PackageProjectUrl>
     <RepositoryUrl>http://gitea.dbugs.work/linxmouse/HikRCS.AspNetCore.git</RepositoryUrl>
     <PackageReleaseNotes>从HikRCS.AspNetCore摘离出来的无Controller的版本</PackageReleaseNotes>
+    <Description>增加更多的Robot状态值
+增加接口/getAgvStatus</Description>
   </PropertyGroup>
 
   <ItemGroup>

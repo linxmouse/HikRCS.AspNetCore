@@ -4,9 +4,11 @@
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <Nullable>enable</Nullable>
     <Authors>linxmouse</Authors>
-    <Version>1.0.8</Version>
+    <Version>1.1.0</Version>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>http://gitea.dbugs.work/linxmouse/HikRCS.AspNetCore.git</RepositoryUrl>
+    <Description>增加更多的Robot状态值
+增加接口/getAgvStatus</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.1|AnyCPU'">

@@ -23,6 +23,7 @@ namespace HikRCS.Client.Configuration
         public string CancelTaskRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/cancelTask";
         public string GetTaskStatusRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/queryTaskStatus";
         public string GetRobotStatusRouter { get; set; } = ":8083/rcms-dps/rest/queryAgvStatus";
+        public string GetAgvStatusRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/getAgvStatus";
         public string FreeRobotRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/freeRobot";
         public string StopRobotRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/stopRobot";
         public string ResumeRobotRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/resumeRobot";

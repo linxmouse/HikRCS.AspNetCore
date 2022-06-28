@@ -68,6 +68,7 @@ namespace HikRCS.AspNetCore.Extensions
                 x.ResumeRobotRouter = options.ResumeRobotRouter;
                 x.FreeRobotRouter = options.FreeRobotRouter;
                 x.GetRobotStatusRouter = options.GetRobotStatusRouter;
+                x.GetAgvStatusRouter = options.GetAgvStatusRouter;
                 x.GetTaskStatusRouter = options.GetTaskStatusRouter;
                 x.CancelTaskRouter = options.CancelTaskRouter;
                 x.ContinueTaskRouter = options.ContinueTaskRouter;
@@ -100,6 +101,7 @@ namespace HikRCS.AspNetCore.Extensions
                 x.ResumeRobotRouter = options.ResumeRobotRouter;
                 x.FreeRobotRouter = options.FreeRobotRouter;
                 x.GetRobotStatusRouter = options.GetRobotStatusRouter;
+                x.GetAgvStatusRouter = options.GetAgvStatusRouter;
                 x.GetTaskStatusRouter = options.GetTaskStatusRouter;
                 x.CancelTaskRouter = options.CancelTaskRouter;
                 x.ContinueTaskRouter = options.ContinueTaskRouter;

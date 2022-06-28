@@ -14,17 +14,18 @@ namespace HikRCS.AspNetCore.Services
 {
     public class HikRobotService : IHikRobotService
     {
-        private readonly string _baseUrl;
-        private readonly HikRCSOptions _hikRCS;
+        protected readonly string _baseUrl;
+        protected readonly HikRCSOptions _hikRCS;
 
-        private readonly string _createTaskRouter;
-        private readonly string _continueTaskRouter;
-        private readonly string _cancelTaskRouter;
-        private readonly string _getTaskStatusRouter;
-        private readonly string _getRobotStatusRouter;
-        private readonly string _freeRobotRouter;
-        private readonly string _stopRobotRouter;
-        private readonly string _resumeRobotRouter;
+        protected readonly string _createTaskRouter;
+        protected readonly string _continueTaskRouter;
+        protected readonly string _cancelTaskRouter;
+        protected readonly string _getTaskStatusRouter;
+        protected readonly string _getRobotStatusRouter;
+        protected readonly string _getAgvStatusRouter;
+        protected readonly string _freeRobotRouter;
+        protected readonly string _stopRobotRouter;
+        protected readonly string _resumeRobotRouter;
 
         public HikRobotService(IOptions<HikRCSOptions> hikRCS)
         {
@@ -36,6 +37,7 @@ namespace HikRCS.AspNetCore.Services
             _cancelTaskRouter = _hikRCS.CancelTaskRouter;
             _getTaskStatusRouter = _hikRCS.GetTaskStatusRouter;
             _getRobotStatusRouter = _hikRCS.GetRobotStatusRouter;
+            _getAgvStatusRouter = _hikRCS.GetAgvStatusRouter;
             _freeRobotRouter = _hikRCS.FreeRobotRouter;
             _stopRobotRouter = _hikRCS.StopRobotRouter;
             _resumeRobotRouter = _hikRCS.ResumeRobotRouter;
@@ -117,6 +119,23 @@ namespace HikRCS.AspNetCore.Services
             catch (Exception ex)
             {
                 return (false, ex.Message);
+                throw;
+            }
+        }
+
+        public virtual async Task<HikAgvStatusOutModel> GetAgvStatus(HikAgvStatusInModel agvStatusInModel)
+        {
+            var apiPath = _baseUrl + _getAgvStatusRouter;
+
+            try
+            {
+                var response = await apiPath.PostJsonAsync(agvStatusInModel);
+                if (!response.ResponseMessage.IsSuccessStatusCode) return new HikAgvStatusOutModel { code = "1", message = response.ResponseMessage.ReasonPhrase };
+                return await response.GetJsonAsync<HikAgvStatusOutModel>();
+            }
+            catch (Exception ex)
+            {
+                return new HikAgvStatusOutModel { code = "1", message = ex.Message };
                 throw;
             }
         }

@@ -45,12 +45,17 @@ namespace HikRCS.AspNetCore.Services
         Task<HikTaskStatusOutModel> GetTaskStatus(HikTaskStatusInModel taskStatusInModel);
         /// <summary>
         /// 查询AGV状态信息、电池电量
+        /// 需要RCS开启Redis消息发布
         /// 调用频次:
         /// 100车以下5秒 
         /// 100-200车10秒 
         /// 200-300车15秒
         /// </summary>
         Task<HikRobotStatusOutModel> GetRobotStatus(HikRobotStatusInModel robotStatusInModel);
+        /// <summary>
+        /// 查询AGV状态信息、电池电量、状态文本
+        /// </summary>
+        Task<HikAgvStatusOutModel> GetAgvStatus(HikAgvStatusInModel agvStatusInModel);
         /// <summary>
         /// 停止指定或全部AGV
         /// </summary>
