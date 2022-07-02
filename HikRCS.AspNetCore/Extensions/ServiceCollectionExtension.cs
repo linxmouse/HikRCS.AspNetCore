@@ -3,9 +3,9 @@
 // Creation: 2022/6/16 12:48:25
 using System;
 using AspectCore.Extensions.DependencyInjection;
-using HikRCS.AspNetCore.Configuration;
 using HikRCS.AspNetCore.Controllers;
-using HikRCS.AspNetCore.Services;
+using HikRCS.Client.Configuration;
+using HikRCS.Client.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

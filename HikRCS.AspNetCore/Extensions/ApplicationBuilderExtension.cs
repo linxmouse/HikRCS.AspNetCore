@@ -4,7 +4,7 @@
 using System;
 using System.Text.RegularExpressions;
 using Flurl.Http;
-using HikRCS.AspNetCore.Configuration;
+using HikRCS.Client.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

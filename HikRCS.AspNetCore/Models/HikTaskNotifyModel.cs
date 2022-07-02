@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HikRCS.AspNetCore.Models
 {
-    public class HikNotifyModel
+    public class HikTaskNotifyModel
     {
         /// <summary>
         /// 请求编号

@@ -25,8 +25,8 @@ namespace HikRCS.AspNetCore.Controllers
         /// <summary>
         /// 模板任务状态回调
         /// </summary>
-        [HttpPost]
-        public async Task<IActionResult> Status(HikNotifyModel notifyModel)
+        [HttpPost("/service/rest/taskNotify")]
+        public async Task<IActionResult> TaskNotify(HikTaskNotifyModel notifyModel)
         {
             await _mediator.Publish(new HikRCSCallEvent { Method = notifyModel.method });
 
@@ -59,20 +59,5 @@ namespace HikRCS.AspNetCore.Controllers
                 message = "成功"
             });
         }
-
-        ///// <summary>
-        ///// 可在执行绑定货架与储位,绑定货架与物料,绑定仓位与容器后通知上层
-        ///// 该接口路径必须为： http://IP:PORT/service/rest/bindNotify
-        ///// </summary>
-        //[HttpPost("/service/rest/bindNotify")]
-        //public async Task<IActionResult> Bind(object param)
-        //{
-        //    return Ok(new
-        //    {
-        //        code = "0",
-        //        reqCode = param.reqCode,
-        //        message = "成功"
-        //    });
-        //}
     }
 }
