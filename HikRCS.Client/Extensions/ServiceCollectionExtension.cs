@@ -15,14 +15,14 @@ namespace HikRCS.Client.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static IServiceCollection AddHikRCSClient(this IServiceCollection services, Action<HikRCSOptions> options)
+        public static IServiceCollection AddHikRCSClient(this IServiceCollection services, Action<HikOptions> options)
         {
             services.AddOptions();
-            services.Configure<HikRCSOptions>(options);
+            services.Configure<HikOptions>(options);
 
             services.AddTransient<IHikRobotService, HikRobotService>(provider =>
             {
-                var op = provider.GetRequiredService<IOptions<HikRCSOptions>>();
+                var op = provider.GetRequiredService<IOptions<HikOptions>>();
                 var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("HikRCSIntegration");
                 FlurlHttp.Configure(settings =>
                 {
@@ -46,9 +46,9 @@ namespace HikRCS.Client.Extensions
 
         public static IServiceCollection AddHikRCSClient(this IServiceCollection services, IConfiguration configuration)
         {
-            var options = configuration.GetSection("HikRCS").Get<HikRCSOptions>();
+            var options = configuration.GetSection("HikRCS").Get<HikOptions>();
             services.AddOptions();
-            services.Configure<HikRCSOptions>(x =>
+            services.Configure<HikOptions>(x =>
             {
                 x.RCSUrl = options.RCSUrl;
                 x.LogFlurlRequest = options.LogFlurlRequest;
@@ -66,7 +66,7 @@ namespace HikRCS.Client.Extensions
 
             services.AddTransient<IHikRobotService, HikRobotService>(provider =>
             {
-                var op = provider.GetRequiredService<IOptions<HikRCSOptions>>();
+                var op = provider.GetRequiredService<IOptions<HikOptions>>();
                 var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("HikRCSIntegration");
                 FlurlHttp.Configure(settings =>
                 {
@@ -88,15 +88,15 @@ namespace HikRCS.Client.Extensions
             return services;
         }
 
-        public static IServiceCollection AddHikRCSClient<T>(this IServiceCollection services, Action<HikRCSOptions> options)
+        public static IServiceCollection AddHikRCSClient<T>(this IServiceCollection services, Action<HikOptions> options)
             where T : class, IHikRobotService
         {
             services.AddOptions();
-            services.Configure<HikRCSOptions>(options);
+            services.Configure<HikOptions>(options);
 
             services.AddTransient<IHikRobotService, T>(provider =>
             {
-                var op = provider.GetRequiredService<IOptions<HikRCSOptions>>();
+                var op = provider.GetRequiredService<IOptions<HikOptions>>();
                 var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("HikRCSIntegration");
                 FlurlHttp.Configure(settings =>
                 {
@@ -121,9 +121,9 @@ namespace HikRCS.Client.Extensions
         public static IServiceCollection AddHikRCSClient<T>(this IServiceCollection services, IConfiguration configuration)
             where T : class, IHikRobotService
         {
-            var options = configuration.GetSection("HikRCS").Get<HikRCSOptions>();
+            var options = configuration.GetSection("HikRCS").Get<HikOptions>();
             services.AddOptions();
-            services.Configure<HikRCSOptions>(x =>
+            services.Configure<HikOptions>(x =>
             {
                 x.RCSUrl = options.RCSUrl;
                 x.LogFlurlRequest = options.LogFlurlRequest;
@@ -141,7 +141,7 @@ namespace HikRCS.Client.Extensions
 
             services.AddTransient<IHikRobotService, T>(provider =>
             {
-                var op = provider.GetRequiredService<IOptions<HikRCSOptions>>();
+                var op = provider.GetRequiredService<IOptions<HikOptions>>();
                 var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("HikRCSIntegration");
                 FlurlHttp.Configure(settings =>
                 {

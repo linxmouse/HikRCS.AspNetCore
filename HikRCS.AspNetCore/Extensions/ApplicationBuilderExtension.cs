@@ -19,7 +19,7 @@ namespace HikRCS.AspNetCore.Extensions
             var logger = app.ApplicationServices.GetRequiredService<ILoggerFactory>().CreateLogger("HikRCSIntegration");
             FlurlHttp.Configure(settings =>
             {
-                var options = app.ApplicationServices.GetRequiredService<IOptions<HikRCSOptions>>().Value;
+                var options = app.ApplicationServices.GetRequiredService<IOptions<HikOptions>>().Value;
                 if (options.LogFlurlRequest)
                 {
                     settings.BeforeCall += call =>

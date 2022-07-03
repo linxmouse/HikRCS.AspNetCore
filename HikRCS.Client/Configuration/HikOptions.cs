@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HikRCS.Client.Configuration
 {
-    public class HikRCSOptions
+    public class HikOptions
     {
         /// <summary>
         /// HikRCS的API基地址

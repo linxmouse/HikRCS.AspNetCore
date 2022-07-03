@@ -12,7 +12,7 @@ namespace HikRCS.AspNetCore.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        public static IMvcBuilder AddHikRCSIntegration(this IMvcBuilder builder, Action<HikRCSOptions> options)
+        public static IMvcBuilder AddHikRCSIntegration(this IMvcBuilder builder, Action<HikOptions> options)
         {
             builder.Services.AddCors(options =>
             {
@@ -20,15 +20,15 @@ namespace HikRCS.AspNetCore.Extensions
             });
 
             builder.Services.AddOptions();
-            builder.Services.Configure<HikRCSOptions>(options);
+            builder.Services.Configure<HikOptions>(options);
 
             builder.Services.AddTransient<IHikRobotService, HikRobotService>();
-            builder.AddApplicationPart(typeof(HikRCSController).Assembly);
+            builder.AddApplicationPart(typeof(HikController).Assembly);
 
             return builder;
         }
 
-        public static IMvcBuilder AddHikRCSIntegration<T>(this IMvcBuilder builder, Action<HikRCSOptions> options)
+        public static IMvcBuilder AddHikRCSIntegration<T>(this IMvcBuilder builder, Action<HikOptions> options)
             where T : class, IHikRobotService
         {
             builder.Services.AddCors(options =>
@@ -37,10 +37,10 @@ namespace HikRCS.AspNetCore.Extensions
             });
 
             builder.Services.AddOptions();
-            builder.Services.Configure<HikRCSOptions>(options);
+            builder.Services.Configure<HikOptions>(options);
 
             builder.Services.AddTransient<IHikRobotService, T>();
-            builder.AddApplicationPart(typeof(HikRCSController).Assembly);
+            builder.AddApplicationPart(typeof(HikController).Assembly);
 
             return builder;
         }
@@ -52,9 +52,9 @@ namespace HikRCS.AspNetCore.Extensions
                 options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
             });
 
-            var options = configuration.GetSection("HikRCS").Get<HikRCSOptions>();
+            var options = configuration.GetSection("HikRCS").Get<HikOptions>();
             builder.Services.AddOptions();
-            builder.Services.Configure<HikRCSOptions>(x =>
+            builder.Services.Configure<HikOptions>(x =>
             {
                 x.RCSUrl = options.RCSUrl;
                 x.LogFlurlRequest = options.LogFlurlRequest;
@@ -71,7 +71,7 @@ namespace HikRCS.AspNetCore.Extensions
             });
 
             builder.Services.AddTransient<IHikRobotService, HikRobotService>();
-            builder.AddApplicationPart(typeof(HikRCSController).Assembly);
+            builder.AddApplicationPart(typeof(HikController).Assembly);
 
             return builder;
         }
@@ -84,9 +84,9 @@ namespace HikRCS.AspNetCore.Extensions
                 options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
             });
 
-            var options = configuration.GetSection("HikRCS").Get<HikRCSOptions>();
+            var options = configuration.GetSection("HikRCS").Get<HikOptions>();
             builder.Services.AddOptions();
-            builder.Services.Configure<HikRCSOptions>(x =>
+            builder.Services.Configure<HikOptions>(x =>
             {
                 x.RCSUrl = options.RCSUrl;
                 x.LogFlurlRequest = options.LogFlurlRequest;
@@ -103,7 +103,7 @@ namespace HikRCS.AspNetCore.Extensions
             });
 
             builder.Services.AddTransient<IHikRobotService, T>();
-            builder.AddApplicationPart(typeof(HikRCSController).Assembly);
+            builder.AddApplicationPart(typeof(HikController).Assembly);
 
             return builder;
         }

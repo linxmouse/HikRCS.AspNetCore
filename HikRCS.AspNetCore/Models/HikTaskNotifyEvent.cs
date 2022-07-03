@@ -11,11 +11,11 @@ namespace HikRCS.AspNetCore.Models
     /// <summary>
     /// 发布RCS回调数据到业务层
     /// </summary>
-    public class HikRCSCallEvent: INotification
+    public class HikTaskNotifyEvent: INotification
     {
         /// <summary>
         /// 通知的Method的名称
         /// </summary>
-        public string Method { get; set; }
+        public HikTaskNotifyModel TaskNotify { get; set; }
     }
 }

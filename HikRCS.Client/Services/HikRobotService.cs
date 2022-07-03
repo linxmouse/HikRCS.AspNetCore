@@ -15,7 +15,7 @@ namespace HikRCS.Client.Services
     public class HikRobotService : IHikRobotService
     {
         protected readonly string _baseUrl;
-        protected readonly HikRCSOptions _hikRCS;
+        protected readonly HikOptions _hikRCS;
 
         protected readonly string _createTaskRouter;
         protected readonly string _continueTaskRouter;
@@ -27,7 +27,7 @@ namespace HikRCS.Client.Services
         protected readonly string _stopRobotRouter;
         protected readonly string _resumeRobotRouter;
 
-        public HikRobotService(IOptions<HikRCSOptions> hikRCS)
+        public HikRobotService(IOptions<HikOptions> hikRCS)
         {
             _hikRCS = hikRCS.Value;
             _baseUrl = _hikRCS.RCSUrl;

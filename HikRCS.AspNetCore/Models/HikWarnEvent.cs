@@ -8,7 +8,7 @@ using MediatR;
 
 namespace HikRCS.AspNetCore.Models
 {
-    public class HikRCSWarnEvent: INotification
+    public class HikWarnEvent: INotification
     {
         /// <summary>
         /// 告警的内容

@@ -3,7 +3,7 @@ using MediatR;
 
 namespace HikRCSIntegration.Test.MediatorCommand
 {
-    public class HikRCSWarnCommand : INotificationHandler<HikRCSWarnEvent>
+    public class HikRCSWarnCommand : INotificationHandler<HikWarnEvent>
     {
         private readonly ILogger<HikRCSCallCommand> _logger;
 
@@ -18,7 +18,7 @@ namespace HikRCSIntegration.Test.MediatorCommand
         /// <param name="notification"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task Handle(HikRCSWarnEvent notification, CancellationToken cancellationToken)
+        public Task Handle(HikWarnEvent notification, CancellationToken cancellationToken)
         {
             if (notification.WarnDescs.Any())
             {

@@ -13,11 +13,11 @@ namespace HikRCS.AspNetCore.Controllers
     [EnableCors("HikRCSAny")]
     [Route("/service/rest/[action]")]
     [ApiController]
-    public class HikRCSController : ControllerBase
+    public class HikController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public HikRCSController(IMediator mediator)
+        public HikController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -28,7 +28,7 @@ namespace HikRCS.AspNetCore.Controllers
         [HttpPost("/service/rest/taskNotify")]
         public async Task<IActionResult> TaskNotify(HikTaskNotifyModel notifyModel)
         {
-            await _mediator.Publish(new HikRCSCallEvent { Method = notifyModel.method });
+            await _mediator.Publish(new HikTaskNotifyEvent { TaskNotify = notifyModel });
 
             return Ok(new
             {
@@ -49,7 +49,7 @@ namespace HikRCS.AspNetCore.Controllers
         {
             if (warnModel.warnInfos.Any())
             {
-                await _mediator.Publish(new HikRCSWarnEvent { WarnDescs = warnModel.warnInfos });
+                await _mediator.Publish(new HikWarnEvent { WarnDescs = warnModel.warnInfos });
             }
 
             return Ok(new
