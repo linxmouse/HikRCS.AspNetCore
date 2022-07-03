@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using HikRCS.AspNetCore.Models;
 using System.Linq;
 using Microsoft.AspNetCore.Cors;
+using HikRCS.AspNetCore.Filters;
 
 namespace HikRCS.AspNetCore.Controllers
 {
-    [EnableCors("HikRCSAny")]
+    [TypeFilter(typeof(HikExceptionFilterAttribute))]
+    [EnableCors("HikAny")]
     [Route("/service/rest/[action]")]
     [ApiController]
     public class HikController : ControllerBase

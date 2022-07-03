@@ -30,7 +30,7 @@ namespace HikRCS.AspNetCore.Extensions
                 }
                 settings.Timeout = TimeSpan.FromSeconds(3);
             });
-            app.UseCors("HikRCSAny");
+            app.UseCors("HikAny");
 
             return app;
         }

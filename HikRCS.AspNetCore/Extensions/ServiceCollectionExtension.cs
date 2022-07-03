@@ -16,7 +16,7 @@ namespace HikRCS.AspNetCore.Extensions
         {
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
+                options.AddPolicy("HikAny", pb => pb.AllowAnyOrigin());
             });
 
             builder.Services.AddOptions();
@@ -33,7 +33,7 @@ namespace HikRCS.AspNetCore.Extensions
         {
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
+                options.AddPolicy("HikAny", pb => pb.AllowAnyOrigin());
             });
 
             builder.Services.AddOptions();
@@ -49,7 +49,7 @@ namespace HikRCS.AspNetCore.Extensions
         {
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
+                options.AddPolicy("HikAny", pb => pb.AllowAnyOrigin());
             });
 
             var options = configuration.GetSection("HikRCS").Get<HikOptions>();
@@ -81,7 +81,7 @@ namespace HikRCS.AspNetCore.Extensions
         {
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("HikRCSAny", pb => pb.AllowAnyOrigin());
+                options.AddPolicy("HikAny", pb => pb.AllowAnyOrigin());
             });
 
             var options = configuration.GetSection("HikRCS").Get<HikOptions>();
