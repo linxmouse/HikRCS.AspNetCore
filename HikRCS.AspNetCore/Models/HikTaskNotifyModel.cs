@@ -20,16 +20,24 @@ namespace HikRCS.AspNetCore.Models
         /// <summary>
         /// 地码 X 坐标(mm)：任务完成时有值
         /// </summary>
-        public string cooX { get; set; }
+        public float cooX { get; set; }
         /// <summary>
         /// 地码 Y 坐标(mm)：任务完成时有值
         /// </summary>
-        public string cooY { get; set; }
+        public float cooY { get; set; }
+        /// <summary>
+        /// 当前呼叫点上一个位置
+        /// </summary>
+        public string callCode { get; set; }
+        /// <summary>
+        /// 当前呼叫点
+        /// </summary>
+        public string currentCallCode { get; set; }
         /// <summary>
         /// 当前位置编号
-        ///任务开始：该位置为任务起点
-        ///走出储位：该位置为任务起点
-        ///任务单取消：该位置为工作位编号
+        /// 任务开始：该位置为任务起点
+        /// 走出储位：该位置为任务起点
+        /// 任务单取消：该位置为工作位编号
         /// 任务结束：该位置为任务终点
         /// </summary>
         public string currentPositionCode { get; set; }
@@ -46,13 +54,7 @@ namespace HikRCS.AspNetCore.Models
         /// </summary>
         public string mapDataCode { get; set; }
         /// <summary>
-        /// 方法名, 可使用任务类型做为方法 名
-        /// 由 RCS-2000 任务模板配置后并告 知上层系统
-        ///默认使用方式:
-        ///start : 任务开始
-        ///outbin : 走出储位
-        ///end : 任务结束
-        ///cancel : 任务单取消
+        /// 方法名
         /// </summary>
         public string method { get; set; }
         /// <summary>
@@ -60,13 +62,13 @@ namespace HikRCS.AspNetCore.Models
         /// </summary>
         public string podCode { get; set; }
         /// <summary>
-        /// 180”,”0”,”90”,”-90” 分
-        ///别 对应地图的 ” 左 ”,” 右 ”,”
-        ///上”,”下”：任务完成时有值
+        /// 任务完成时有值
+        /// 180,0,90,-90
+        /// 对应地图的 左,右,上,下
         /// </summary>
         public string podDir { get; set; }
         /// <summary>
-        /// AGV 编号（同 agvCode ）
+        /// AGV编号
         /// </summary>
         public string robotCode { get; set; }
         /// <summary>
