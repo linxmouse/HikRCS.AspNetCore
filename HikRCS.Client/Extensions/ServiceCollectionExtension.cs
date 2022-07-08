@@ -62,6 +62,8 @@ namespace HikRCS.Client.Extensions
                 x.GetTaskStatusRouter = options.GetTaskStatusRouter;
                 x.CancelTaskRouter = options.CancelTaskRouter;
                 x.ContinueTaskRouter = options.ContinueTaskRouter;
+                x.LoginRouter = options.LoginRouter;
+                x.ChargeRouter = options.ChargeRouter;
             });
 
             services.AddTransient<IHikRobotService, HikRobotService>(provider =>
@@ -137,6 +139,8 @@ namespace HikRCS.Client.Extensions
                 x.GetTaskStatusRouter = options.GetTaskStatusRouter;
                 x.CancelTaskRouter = options.CancelTaskRouter;
                 x.ContinueTaskRouter = options.ContinueTaskRouter;
+                x.LoginRouter = options.LoginRouter;
+                x.ChargeRouter = options.ChargeRouter;
             });
 
             services.AddTransient<IHikRobotService, T>(provider =>

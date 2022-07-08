@@ -27,5 +27,7 @@ namespace HikRCS.Client.Configuration
         public string FreeRobotRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/freeRobot";
         public string StopRobotRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/stopRobot";
         public string ResumeRobotRouter { get; set; } = ":8182/rcms/services/rest/hikRpcService/resumeRobot";
+        public string LoginRouter { get; set; } = ":8182/rcms/web/login/login.action";
+        public string ChargeRouter { get; set; } = ":8182/rcms/web/agvControl/agvChargeTask.action";
     }
 }

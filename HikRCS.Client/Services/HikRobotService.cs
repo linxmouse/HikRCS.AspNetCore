@@ -2,9 +2,8 @@
 // Author: linxmouse@gmail.com
 // Creation: 2022/6/16 21:20:19
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Flurl;
 using Flurl.Http;
 using HikRCS.Client.Configuration;
 using HikRCS.Client.Models;
@@ -26,6 +25,8 @@ namespace HikRCS.Client.Services
         protected readonly string _freeRobotRouter;
         protected readonly string _stopRobotRouter;
         protected readonly string _resumeRobotRouter;
+        protected readonly string _loginRouter;
+        protected readonly string _chargeRouter;
 
         public HikRobotService(IOptions<HikOptions> hikRCS)
         {
@@ -41,6 +42,8 @@ namespace HikRCS.Client.Services
             _freeRobotRouter = _hikRCS.FreeRobotRouter;
             _stopRobotRouter = _hikRCS.StopRobotRouter;
             _resumeRobotRouter = _hikRCS.ResumeRobotRouter;
+            _loginRouter = _hikRCS.LoginRouter;
+            _chargeRouter = _hikRCS.ChargeRouter;
         }
 
         public virtual async Task<(bool success, string message)> CancelTask(HikCancelTaskModel cancelTaskModel)
@@ -191,6 +194,42 @@ namespace HikRCS.Client.Services
             {
                 return (false, ex.Message);
                 throw;
+            }
+        }
+
+        public async Task<(bool success, string message)> RobotCharge(HikRobotChargeModel chargeModel)
+        {
+            try
+            {
+                var loginPath = _baseUrl + _loginRouter;
+                var response = await loginPath
+                    .WithHeader("content-type", "application/x-www-form-urlencoded")
+                    .SetQueryParams(new
+                    {
+                        ecsUserName = chargeModel.ecsUserName,
+                        ecsPassword = chargeModel.lowerMd5Password,
+                        pwdSafeLevelLogin = chargeModel.pwdSafeLevelLogin
+                    }).PostAsync();
+                response.ResponseMessage.EnsureSuccessStatusCode();
+                var cookies = response.Cookies;
+                var loginResult = await response.GetJsonAsync();
+                if (!loginResult.success) return (false, loginResult?.msg);
+
+                var chargePath = _baseUrl + _chargeRouter;
+                var chargeResult = await chargePath.WithCookies(cookies).PostJsonAsync(new
+                {
+                    // 不可缺少此字段
+                    clientCode = "",
+                    agvCode = chargeModel.agvCode,
+                    chargeCode = chargeModel.chargeCode
+                }).ReceiveJson();
+                if (chargeResult.code == "0") return (true, chargeResult.message);
+
+                return (false, chargeResult.message);
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message);
             }
         }
 

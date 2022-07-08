@@ -64,5 +64,9 @@ namespace HikRCS.Client.Services
         /// 恢复AGV,恢复后继续执行未完成的任务
         /// </summary>
         Task<(bool success, string message)> ResumeRobot(HikStopAndResumeRobotInModel robotInModel);
+        /// <summary>
+        /// AGV充电、取消AGV充电
+        /// </summary>
+        Task<(bool success, string message)> RobotCharge(HikRobotChargeModel hikRobotChargeModel);
     }
 }

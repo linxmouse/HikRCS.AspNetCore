@@ -2,6 +2,12 @@ using HikRCS.AspNetCore.Extensions;
 using HikRCS.Client.Extensions;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Flurl;
+using Flurl.Http;
+using System.Text;
+using System.Security.Cryptography;
+using HikRCS.Client.Services;
+using HikRCS.Client.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +38,17 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+var robotService = app.Services.GetRequiredService<IHikRobotService>();
+var rt = await robotService.RobotCharge(new HikRobotChargeModel
+{
+    ecsUserName = "admin",
+    lowerMd5Password = Convert.ToHexString(MD5.HashData(Encoding.UTF8.GetBytes("Hik@1234"))).ToLower(),
+    agvCode = "44",
+    // 1-充电 0-取消充电
+    chargeCode = 1
+});
+Console.WriteLine($"{rt.success}  {rt.message}");
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -41,7 +58,7 @@ if (app.Environment.IsDevelopment())
 
 // 添加回调控制器的跨域支持
 // 调用必须放在UseRouting之后,但在UseAuthorization之前,参考https://docs.microsoft.com/zh-cn/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0#middleware-order
-//app.ApplyHikRCSIntegration();
+app.ApplyHikRCSIntegration();
 app.UseAuthorization();
 
 app.MapControllers();
