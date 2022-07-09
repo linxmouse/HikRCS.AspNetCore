@@ -8,6 +8,8 @@ using Flurl.Http;
 using HikRCS.Client.Configuration;
 using HikRCS.Client.Models;
 using Microsoft.Extensions.Options;
+using Masuit.Tools;
+using Masuit.Tools.Security;
 
 namespace HikRCS.Client.Services
 {
@@ -207,7 +209,7 @@ namespace HikRCS.Client.Services
                     .SetQueryParams(new
                     {
                         ecsUserName = chargeModel.ecsUserName,
-                        ecsPassword = chargeModel.lowerMd5Password,
+                        ecsPassword = chargeModel.ecsPassword.MDString().ToLower(),
                         pwdSafeLevelLogin = chargeModel.pwdSafeLevelLogin
                     }).PostAsync();
                 response.ResponseMessage.EnsureSuccessStatusCode();

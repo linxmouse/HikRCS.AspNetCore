@@ -15,9 +15,8 @@ namespace HikRCS.Client.Models
         public string ecsUserName { get; set; } = "admin";
         /// <summary>
         /// ECS密码
-        /// MD5 Lower case
         /// </summary>
-        public string lowerMd5Password { get; set; }
+        public string ecsPassword { get; set; } = "Hik@1234";
         /// <summary>
         /// 管理员编码
         /// </summary>
