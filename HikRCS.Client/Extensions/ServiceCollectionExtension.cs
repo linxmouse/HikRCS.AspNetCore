@@ -35,7 +35,6 @@ namespace HikRCS.Client.Extensions
                             logger?.LogInformation(Regex.Replace(msg, "[\r\n]", ""));
                         };
                     }
-                    settings.Timeout = TimeSpan.FromSeconds(6);
                 });
 
                 return ActivatorUtilities.GetServiceOrCreateInstance<HikRobotService>(provider);
@@ -81,7 +80,6 @@ namespace HikRCS.Client.Extensions
                             logger?.LogInformation(Regex.Replace(msg, "[\r\n]", ""));
                         };
                     }
-                    settings.Timeout = TimeSpan.FromSeconds(10);
                 });
 
                 return ActivatorUtilities.GetServiceOrCreateInstance<HikRobotService>(provider);
@@ -111,7 +109,6 @@ namespace HikRCS.Client.Extensions
                             logger?.LogInformation(Regex.Replace(msg, "[\r\n]", ""));
                         };
                     }
-                    settings.Timeout = TimeSpan.FromSeconds(10);
                 });
 
                 return ActivatorUtilities.GetServiceOrCreateInstance<T>(provider);
@@ -158,7 +155,6 @@ namespace HikRCS.Client.Extensions
                             logger?.LogInformation(Regex.Replace(msg, "[\r\n]", ""));
                         };
                     }
-                    settings.Timeout = TimeSpan.FromSeconds(10);
                 });
 
                 return ActivatorUtilities.GetServiceOrCreateInstance<T>(provider);

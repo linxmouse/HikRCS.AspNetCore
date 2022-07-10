@@ -16,20 +16,6 @@ namespace HikRCS.AspNetCore.Extensions
     {
         public static IApplicationBuilder ApplyHikRCSIntegration(this IApplicationBuilder app)
         {
-            var logger = app.ApplicationServices.GetRequiredService<ILoggerFactory>().CreateLogger("HikRCSIntegration");
-            FlurlHttp.Configure(settings =>
-            {
-                var options = app.ApplicationServices.GetRequiredService<IOptions<HikOptions>>().Value;
-                if (options.LogFlurlRequest)
-                {
-                    settings.BeforeCall += call =>
-                    {
-                        var msg = call.HttpRequestMessage.ToString();
-                        logger?.LogInformation(Regex.Replace(msg, "[\r\n]", ""));
-                    };
-                }
-                settings.Timeout = TimeSpan.FromSeconds(3);
-            });
             app.UseCors("HikAny");
 
             return app;

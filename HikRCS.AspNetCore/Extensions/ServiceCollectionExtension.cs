@@ -4,6 +4,7 @@
 using System;
 using HikRCS.AspNetCore.Controllers;
 using HikRCS.Client.Configuration;
+using HikRCS.Client.Extensions;
 using HikRCS.Client.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,10 +20,7 @@ namespace HikRCS.AspNetCore.Extensions
                 options.AddPolicy("HikAny", pb => pb.AllowAnyOrigin());
             });
 
-            builder.Services.AddOptions();
-            builder.Services.Configure<HikOptions>(options);
-
-            builder.Services.AddTransient<IHikRobotService, HikRobotService>();
+            builder.Services.AddHikRCSClient(options);
             builder.AddApplicationPart(typeof(HikController).Assembly);
 
             return builder;
@@ -36,10 +34,7 @@ namespace HikRCS.AspNetCore.Extensions
                 options.AddPolicy("HikAny", pb => pb.AllowAnyOrigin());
             });
 
-            builder.Services.AddOptions();
-            builder.Services.Configure<HikOptions>(options);
-
-            builder.Services.AddTransient<IHikRobotService, T>();
+            builder.Services.AddHikRCSClient<T>(options);
             builder.AddApplicationPart(typeof(HikController).Assembly);
 
             return builder;
@@ -52,25 +47,7 @@ namespace HikRCS.AspNetCore.Extensions
                 options.AddPolicy("HikAny", pb => pb.AllowAnyOrigin());
             });
 
-            var options = configuration.GetSection("HikRCS").Get<HikOptions>();
-            builder.Services.AddOptions();
-            builder.Services.Configure<HikOptions>(x =>
-            {
-                x.RCSUrl = options.RCSUrl;
-                x.LogFlurlRequest = options.LogFlurlRequest;
-
-                x.CreateTaskRouter = options.CreateTaskRouter;
-                x.StopRobotRouter = options.StopRobotRouter;
-                x.ResumeRobotRouter = options.ResumeRobotRouter;
-                x.FreeRobotRouter = options.FreeRobotRouter;
-                x.GetRobotStatusRouter = options.GetRobotStatusRouter;
-                x.GetAgvStatusRouter = options.GetAgvStatusRouter;
-                x.GetTaskStatusRouter = options.GetTaskStatusRouter;
-                x.CancelTaskRouter = options.CancelTaskRouter;
-                x.ContinueTaskRouter = options.ContinueTaskRouter;
-            });
-
-            builder.Services.AddTransient<IHikRobotService, HikRobotService>();
+            builder.Services.AddHikRCSClient(configuration);
             builder.AddApplicationPart(typeof(HikController).Assembly);
 
             return builder;
@@ -84,25 +61,7 @@ namespace HikRCS.AspNetCore.Extensions
                 options.AddPolicy("HikAny", pb => pb.AllowAnyOrigin());
             });
 
-            var options = configuration.GetSection("HikRCS").Get<HikOptions>();
-            builder.Services.AddOptions();
-            builder.Services.Configure<HikOptions>(x =>
-            {
-                x.RCSUrl = options.RCSUrl;
-                x.LogFlurlRequest = options.LogFlurlRequest;
-
-                x.CreateTaskRouter = options.CreateTaskRouter;
-                x.StopRobotRouter = options.StopRobotRouter;
-                x.ResumeRobotRouter = options.ResumeRobotRouter;
-                x.FreeRobotRouter = options.FreeRobotRouter;
-                x.GetRobotStatusRouter = options.GetRobotStatusRouter;
-                x.GetAgvStatusRouter = options.GetAgvStatusRouter;
-                x.GetTaskStatusRouter = options.GetTaskStatusRouter;
-                x.CancelTaskRouter = options.CancelTaskRouter;
-                x.ContinueTaskRouter = options.ContinueTaskRouter;
-            });
-
-            builder.Services.AddTransient<IHikRobotService, T>();
+            builder.Services.AddHikRCSClient<T>(configuration);
             builder.AddApplicationPart(typeof(HikController).Assembly);
 
             return builder;
