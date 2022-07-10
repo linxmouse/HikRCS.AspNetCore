@@ -41,8 +41,6 @@ var app = builder.Build();
 var robotService = app.Services.GetRequiredService<IHikRobotService>();
 var rt = await robotService.RobotCharge(new HikRobotChargeModel
 {
-    ecsUserName = "admin",
-    lowerMd5Password = Convert.ToHexString(MD5.HashData(Encoding.UTF8.GetBytes("Hik@1234"))).ToLower(),
     agvCode = "44",
     // 1-充电 0-取消充电
     chargeCode = 1
