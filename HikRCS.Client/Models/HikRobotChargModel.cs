@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HikRCS.Client.Models
 {
-    public class HikRobotChargeModel
+    public class HikRobotChargModel
     {
         /// <summary>
         /// ECS用户名

@@ -67,6 +67,6 @@ namespace HikRCS.Client.Services
         /// <summary>
         /// AGV充电、取消AGV充电
         /// </summary>
-        Task<(bool success, string message)> RobotCharge(HikRobotChargeModel hikRobotChargeModel);
+        Task<(bool success, string message)> RobotCharg(HikRobotChargModel hikRobotChargeModel);
     }
 }

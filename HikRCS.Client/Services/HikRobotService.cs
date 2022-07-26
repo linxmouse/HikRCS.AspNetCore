@@ -199,7 +199,7 @@ namespace HikRCS.Client.Services
             }
         }
 
-        public async Task<(bool success, string message)> RobotCharge(HikRobotChargeModel chargeModel)
+        public async Task<(bool success, string message)> RobotCharg(HikRobotChargModel chargeModel)
         {
             try
             {

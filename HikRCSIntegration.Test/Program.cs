@@ -39,7 +39,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 var robotService = app.Services.GetRequiredService<IHikRobotService>();
-var rt = await robotService.RobotCharge(new HikRobotChargeModel
+var rt = await robotService.RobotCharg(new HikRobotChargModel
 {
     agvCode = "44",
     // 1-充电 0-取消充电
